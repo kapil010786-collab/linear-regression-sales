@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression Sales Predictor</title>
 
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f6fb;
+            color: #222;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 18px;
+            background: #eef6ff;
+            border-radius: 10px;
+        }
+
+        .result h2 {
+            margin-top: 0;
+        }
+
+        .prediction {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h1>Linear Regression</h1>
+        <div class="subtitle">Sales Prediction</div>
+
+        <form method="POST">
+
+            <label>Week 1 Sales</label>
+            <input type="number" step="any" name="w1" value="1.2" required>
+
+            <label>Week 2 Sales</label>
+            <input type="number" step="any" name="w2" value="1.8" required>
+
+            <label>Week 3 Sales</label>
+            <input type="number" step="any" name="w3" value="2.6" required>
+
+            <label>Week 4 Sales</label>
+            <input type="number" step="any" name="w4" value="3.2" required>
+
+            <label>Week 5 Sales</label>
+            <input type="number" step="any" name="w5" value="3.8" required>
+
+            <button type="submit">Predict Sales</button>
+
+        </form>
+
+        {% if result %}
+            <div class="result">
+
+                {% if result.error %}
+
+                    <div class="error">{{ result.error }}</div>
+
+                {% else %}
+
+                    <h2>Prediction Result</h2>
+
+                    <p>
+                        <strong>Regression Equation:</strong><br>
+                        Y = {{ "%.2f"|format(result.slope) }}X
+                        + {{ "%.2f"|format(result.intercept) }}
+                    </p>
+
+                    <div class="prediction">
+                        Week 6: {{ "%.2f"|format(result.week6) }} thousand
+                    </div>
+
+                    <div class="prediction">
+                        Week 7: {{ "%.2f"|format(result.week7) }} thousand
+                    </div>
+
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+</body>
+</html>
